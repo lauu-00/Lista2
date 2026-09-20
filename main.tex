@@ -1,0 +1,471 @@
+\documentclass[12pt]{article}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{enumitem}
+\usepackage{amsmath, amssymb}
+\usepackage[most]{tcolorbox}
+
+\fancyhead[L]{Diana Laura Diaz Juarez}
+\fancyhead[R]{Boleta: 2024630047}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcounter{ejercicio}
+
+\newtcolorbox{enunciado}[1]{
+    colback=gray!5,
+    colframe=black,
+    title=\textbf{Ejercicio #1},
+    fonttitle=\bfseries,
+    boxrule=0.8pt,
+    arc=2mm,
+    left=4mm,
+    right=4mm,
+    top=3mm,
+    bottom=3mm,
+    before skip=10pt,
+    after skip=10pt
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    {\LARGE \scshape Instituto Politécnico Nacional} \par \vspace{1cm}
+    {\Large \scshape Escuela Superior de Cómputo} \par \vspace{1.5cm}
+    {\huge \bfseries Segunda Lista de problemas y ejercicios} \par \vspace{2cm}
+    {\Large \scshape Alumna: Diana Laura Diaz Juarez} \par \vspace{0.5cm}
+    {\large \scshape Profesor: Gabriel Hurtado Áviles} \par \vspace{2cm}
+    {\large Fecha: \today} \par
+\begin{center}
+    {\large{4CM4}\\}
+\end{center}
+\end{titlepage}.
+
+\section*{Esta lista de problemas y ejercicios debe entregarse en formato PDF,
+utilizando la herramienta JFLAP para diseñar y simular los autómatas.
+En la parte superior de cada hoja debe aparecer la información general del
+alumno (nombre completo, boleta y grupo). Además, debe incluir las
+instrucciones y/o enunciados de cada ejercicio, no sólo las respuestas.
+Finalmente, todas las respuestas de los ejercicios deben ir acompañadas del
+procedimiento y/o razonamiento.
+NOTA: Los ejercicios que debe entregar en esta tarea son los que tienen un
+asterisco. El resto son opcionales.}
+
+\section{Autómatas Finitos Deterministas (AFD)}
+En los problemas 94-123, debe hallar un Automata Finito Determinista (AFD) que distinga las palabras del lenguaje que se describe con el alfabeto que se indica.
+Debe representar la respuesta usando el diagrama de transiciones y la tabla de transiciones. Los alfabetos utilizados son:
+
+$\Sigma_1 = \{0,1,2\}$,  $\Sigma_2 = \{a,b,c,0,1\}$,  $\Sigma_3 = \{a,b\}$
+
+\begin{enunciado}{97}
+Las palabras de $\Sigma_1$ cuya longitud es un múltiplo de 3.
+\end{enunciado}
+
+
+\begin{enunciado}{99}
+Las palabras de $\Sigma_1$ que terminan con la cadena $001001$.
+\end{enunciado}
+
+
+\begin{enunciado}{102}
+Las palabras de $\Sigma_3$ que contienen la cadena $abbbab$.
+\end{enunciado}
+
+
+\begin{enunciado}{103}
+Las palabras de $\Sigma_3$ que contienen la cadena $aabbba$.
+\end{enunciado}
+
+
+\begin{enunciado}{106}
+Las palabras de $\Sigma_1$ que incluyen la subcadena $1101001$.
+\end{enunciado}
+
+
+\begin{enunciado}{107}
+Las palabras de $\Sigma_1$ que incluyen al menos una vez la subcadena
+$0101$ y al menos una vez la subcadena $021$.
+\end{enunciado}
+
+
+\begin{enunciado}{109}
+Las palabras de $\Sigma_2$ que incluyen al menos una vez la subcadena
+$abbcb$ y al menos una vez la subcadena $cbaabb$, asumiendo que sí se pueden
+traslapar.
+\end{enunciado}
+
+
+\begin{enunciado}{111}
+Las palabras de $\Sigma_1$ que contienen exactamente tres veces la
+subcadena $01002$.
+\end{enunciado}
+
+
+\begin{enunciado}{112}
+Las palabras de $\Sigma_1$ que contienen dos veces la subcadena $010$,
+asumiendo que no se pueden traslapar; es decir, que $01010$ no está en el
+lenguaje, mientras que $010010$ sí pertenece.
+\end{enunciado}
+
+
+\begin{enunciado}{113}
+Las palabras de $\Sigma_1$ que contienen dos veces la subcadena $010$,
+asumiendo que sí se pueden traslapar.
+\end{enunciado}
+
+
+\begin{enunciado}{116}
+\[
+L=\{w\in\Sigma_2 : w=a^n b^m c^{n+1},\; m,n\in\mathbb{N}\}.
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{118}
+\[
+L=\{w\in\Sigma_3 : w=axabya,\; x,y\in\Sigma_3^*\}.
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{120}
+Las palabras de $\Sigma_1$ tales que el primer carácter y el último son
+distintos.
+\end{enunciado}
+
+
+\begin{enunciado}{121}
+Las palabras de $\Sigma_1$ con longitud $3n$ para algún $n\in\mathbb{N}$,
+tales que si se dividen en $n$ bloques de longitud 3, cada uno de éstos
+tiene al menos un $0$.
+
+Por ejemplo, $000\;011\;110\;101$ es una palabra válida, mientras que
+$001\;101\;111\;010$ no lo es, pues el tercer bloque no tiene ningún $0$.
+\end{enunciado}
+
+
+\begin{enunciado}{122}
+Las palabras de $\Sigma_1$ tales que cualquier cadena de tres símbolos
+consecutivos debe tener un $0$.
+
+Nota que la cadena $001110$ sí está en el lenguaje del problema anterior,
+pero no en este, mientras que $00101$ está en el lenguaje de este problema
+y no en el del anterior.
+\end{enunciado}
+
+
+\begin{enunciado}{123}
+Las palabras de $\Sigma_3$ de la forma
+\[
+wxw
+\]
+donde $w\in\Sigma_3^2$ y $x\in\Sigma_3^*$.
+\end{enunciado}
+
+
+\begin{enunciado}{124}
+En el siguiente diagrama, se muestra un mecanismo con palancas. Se suelta
+una cadena de canicas ordenadas en las entradas $0$ y $1$, formando una
+palabra del alfabeto $\Sigma=\{0,1\}$.
+
+De esta forma, la palabra $0010$ significa que dos canicas caen por el
+conducto $0$, luego se suelta una en $1$, terminando con una cuarta en $0$.
+
+En el juego se encuentran tres palancas. Cada vez que una canica pasa por
+una palanca, esta cambia de posición. Una palabra será aceptada si la
+última canica sale por $A$ y será rechazada si la última canica sale por
+$R$.
+
+\begin{enumerate}[label=\alph*)]
+    \item ¿De cuántas formas pueden estar colocadas las tres palancas?
+    
+    \item Realice un dibujo de cada uno de los estados en los que pueden
+    estar colocadas e identifique cuál es el resultado de soltar una canica
+    en $0$ o en $1$ en cada uno de los estados, así como la posición en la
+    que quedarán las palancas después de cada caso.
+    
+    \item Encuentre la tabla de transiciones de un autómata finito
+    determinista que describa si una palabra es aceptada o rechazada.
+\end{enumerate}
+\end{enunciado}
+
+
+\begin{enunciado}{125}
+Sea
+\[
+A=(Q,\Sigma,\delta,A_0,F)
+\]
+un autómata finito determinista.
+
+¿Cuál es el lenguaje del autómata
+\[
+A=(Q,\Sigma,\delta,A_0,Q\setminus F)?
+\]
+
+Recuerde que
+\[
+A\setminus B=\{x:x\in A\text{ y }x\notin B\}.
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{126}
+Sea
+\[
+A=(Q,\Sigma,\delta,A_0,F)
+\]
+un autómata finito determinista.
+
+¿Cuál es el lenguaje del autómata si
+\[
+F=\varnothing?
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{127}
+Sea
+\[
+A=(Q,\Sigma,\delta,q_0,F)
+\]
+un autómata finito determinista.
+
+¿Cuál es el lenguaje del autómata si
+\[
+F=Q?
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{128}
+Sea $L$ el lenguaje del autómata dado por el siguiente diagrama.
+
+Encuentre un autómata finito determinista que identifique el lenguaje
+$L_2$ cuyas palabras son las palabras de $L$ quitándoles el último símbolo.
+
+Es decir, si
+\[
+001001\in L,
+\]
+entonces
+\[
+00100\in L_2.
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{131}
+Dibuje el AFD dado por los siguientes elementos:
+\[
+M=(\{q_1,q_2\},\{0,1\},\delta,q_1,\{q_2\}).
+\]
+
+La función de transición $\delta$ está definida como sigue:
+\[
+\delta(q_1,0)=q_1
+\]
+y
+\[
+\delta(q_2,0)=q_1,
+\]
+\[
+\delta(q_1,1)=q_2
+\]
+y
+\[
+\delta(q_2,1)=q_2.
+\]
+
+Determine un lenguaje $L(M)$ que el AFD reconoce.
+\end{enunciado}
+
+
+\begin{enunciado}{133}
+Obtener la tabla de estados y el diagrama de transiciones (esquema AFD)
+del autómata finito
+\[
+M=(Q,\Sigma,\delta,q_0,F),
+\]
+donde:
+
+\[
+Q=\{q_0,q_1,q_2,q_3\},
+\]
+
+\[
+\Sigma=\{a,b\},
+\]
+
+$q_0$ es el estado inicial y también el estado final
+$(F=\{q_0\})$.
+
+Las transiciones están definidas de la siguiente manera:
+\[
+\begin{aligned}
+\delta(q_0,a)&=q_2, &
+\delta(q_3,a)&=q_1, &
+\delta(q_2,b)&=q_3,\\
+\delta(q_1,a)&=q_3, &
+\delta(q_0,b)&=q_1, &
+\delta(q_3,b)&=q_2,\\
+\delta(q_2,a)&=q_0, &
+\delta(q_1,b)&=q_0.
+\end{aligned}
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{135}
+Dado
+\[
+\Sigma=\{a,b\},
+\]
+construir un AFD que reconozca el lenguaje:
+\[
+L=\{b^mab^n:m,n>0\}.
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{137}
+Construir un AFD que reconozca el conjunto de todas las cadenas sobre
+\[
+\Sigma=\{a,b\}
+\]
+que comiencen con el prefijo ``ab''.
+\end{enunciado}
+
+
+\begin{enunciado}{139}
+Determine un autómata finito (FA) que acepte todas las cadenas en
+\[
+\{0,1\}^*
+\]
+que tengan un número par de ceros.
+\end{enunciado}
+
+
+\begin{enunciado}{141}
+Determine un autómata finito (FA), $M$, que acepte el lenguaje $L$, donde:
+\[
+L=\{w\in\{0,1\}^*: \text{cada }0\text{ en }w\text{ tiene un }1
+\text{ inmediatamente a su derecha}\}.
+\]
+\end{enunciado}
+
+
+\begin{enunciado}{143}
+Determine los lenguajes producidos por los autómatas finitos (FA)
+mostrados en las Figuras (a) y (b).
+\end{enunciado}
+
+
+\begin{enunciado}{145}
+Encuentre un AFD que lee un número binario de derecha a izquierda e
+identifica aquellos que son múltiplos de 5.
+\end{enunciado}
+
+
+\begin{enunciado}{147}
+Diseñe un AFD que lee un número binario de izquierda a derecha y lo
+acepta si es un múltiplo de 6.
+\end{enunciado}
+
+
+\begin{enunciado}{148}
+Diseñar un autómata finito (FA) que modele el progreso de un alumno de la
+ESCOM a lo largo de una Unidad de Aprendizaje, en este caso el curso de
+Teoría de la Computación.
+
+El autómata debe representar las distintas decisiones que se toman en cada
+evaluación, como si el alumno aprueba, aplaza o no se presenta a un examen,
+y controlar que no se presenten más de dos convocatorias en un año.
+
+El autómata concluirá cuando el alumno apruebe el curso.
+
+El alfabeto de entrada estará formado por los siguientes elementos:
+
+\begin{itemize}
+    \item $P$: El alumno se presenta al examen.
+    \item $N$: El alumno no se presenta al examen.
+    \item $A$: El alumno aprueba el examen.
+    \item $S$: El alumno aplaza el examen.
+\end{itemize}
+
+El alumno comenzará en un estado inicial y tomará decisiones sobre si
+presentarse en las distintas convocatorias de febrero, septiembre y
+diciembre, hasta que apruebe el curso.
+
+Se deben evitar más de dos convocatorias en un año y reiniciar el ciclo en
+caso de no aprobar en las dos primeras.
+\end{enunciado}
+
+
+\begin{enunciado}{149}
+Considere el autómata
+\[
+A=(Q,\Sigma,\delta,A_0,F)
+\]
+definido en la siguiente tabla.
+
+Encuentre $Q$, $\Sigma$, $A_0$ y $F$, haga el diagrama de transiciones
+del autómata y halle los valores que se piden en cada inciso.
+
+\[
+\begin{array}{c|cc}
+ & 0 & 1\\
+\hline
+\rightarrow A & B & C\\
+B & A & C\\
+* C & C & A
+\end{array}
+\]
+
+\begin{enumerate}[label=\alph*)]
+    \item $\delta(B,0)$
+    
+    \item $\delta(C,1)$
+    
+    \item $\hat{\delta}(A,1101)$
+    
+    \item $\hat{\delta}(A,01001)$
+\end{enumerate}
+\end{enunciado}
+
+
+\begin{enunciado}{150}
+Considere el autómata
+\[
+A=(Q,\Sigma,\delta,A_0,F)
+\]
+definido en la siguiente tabla.
+
+Encuentre $Q$, $\Sigma$, $A_0$ y $F$, haga el diagrama de transiciones
+del autómata y halle los valores que se piden en cada inciso.
+
+\[
+\begin{array}{c|ccc}
+ & 0 & 1 & a\\
+\hline
+\rightarrow A & B & C & D\\
+* B & B & C & C\\
+* C & A & A & D\\
+* D & B & B & B
+\end{array}
+\]
+
+\begin{enumerate}[label=\alph*)]
+    \item $\hat{\delta}(B,10a11)$
+    
+    \item $\hat{\delta}(B,aa1100)$
+    
+    \item $\hat{\delta}(A,a01a01)$
+    
+    \item $\hat{\delta}(C,a11a00)$
+\end{enumerate}
+\end{enunciado}
+
+
+
+\end{document}
