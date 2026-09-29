@@ -179,21 +179,406 @@ múltiplos de 3.
 \begin{enunciado}{99}
 Las palabras de $\Sigma_1$ que terminan con la cadena $001001$.
 \end{enunciado}
+\subsection*{Procedimiento}
+
+Se requiere construir un AFD que acepte todas las cadenas sobre el alfabeto
+\[
+\Sigma_1=\{0,1,2\}
+\]
+que terminen exactamente con la secuencia
+\[
+001001.
+\]
+
+Para construir el autómata, cada estado representa el avance que se ha
+realizado en el reconocimiento de la secuencia final $001001$.
+
+\begin{itemize}
+    \item $q_0$: todavía no se ha reconocido ningún símbolo de la secuencia.
+    \item $q_1$: se ha reconocido $0$.
+    \item $q_2$: se ha reconocido $00$.
+    \item $q_3$: se ha reconocido $001$.
+    \item $q_4$: se ha reconocido $0010$.
+    \item $q_5$: se ha reconocido $00100$.
+    \item $q_6$: se ha reconocido $001001$.
+\end{itemize}
+
+El estado inicial es $q_0$ y el único estado de aceptación es $q_6$.
+
+Por lo tanto, el autómata se define formalmente como
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde
+
+\[
+Q=\{q_0,q_1,q_2,q_3,q_4,q_5,q_6\},
+\]
+
+\[
+\Sigma=\{0,1,2\},
+\]
+
+\[
+F=\{q_6\}.
+\]
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & 0 & 1 & 2 \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_0$ & $q_0$ \\
+$q_1$ & $q_2$ & $q_0$ & $q_0$ \\
+$q_2$ & $q_2$ & $q_3$ & $q_0$ \\
+$q_3$ & $q_4$ & $q_0$ & $q_0$ \\
+$q_4$ & $q_5$ & $q_0$ & $q_0$ \\
+$q_5$ & $q_2$ & $q_6$ & $q_0$ \\
+$*q_6$ & $q_4$ & $q_0$ & $q_0$
+\end{tabular}
+\end{center}
+
+Al llegar a $q_6$ se ha reconocido la secuencia completa $001001$.
+Sin embargo, si aparecen más símbolos, el autómata debe continuar
+procesándolos, ya que la condición establece que la cadena debe
+\textbf{terminar} en $001001$.
+
+Por ejemplo, desde $q_6$, al recibir un $0$ se pasa a $q_4$, debido a que
+la cadena resultante conserva el sufijo $0010$, que también corresponde
+al inicio de la secuencia buscada.
+
+\subsection*{Pruebas}
+
+Se realizaron las siguientes pruebas en JFLAP:
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado esperado \\ \hline
+001001 & Aceptada \\
+1001001 & Aceptada \\
+212001001 & Aceptada \\
+00100 & Rechazada \\
+0010010 & Rechazada \\
+0010012 & Rechazada
+\end{tabular}
+\end{center}
+
+Las primeras tres cadenas terminan en $001001$, mientras que las últimas
+tres no cumplen completamente con esta condición.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio99.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 99 en JFLAP.}
+\end{figure}
 
 \begin{enunciado}{102}
 Las palabras de $\Sigma_3$ que contienen la cadena $abbbab$.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se requiere construir un AFD sobre el alfabeto
+
+\[
+\Sigma_3=\{a,b\}
+\]
+
+que acepte todas las palabras que contengan la subcadena
+
+\[
+abbbab.
+\]
+
+Para construir el autómata, cada estado representa el avance realizado
+en el reconocimiento de la subcadena $abbbab$.
+
+\begin{itemize}
+    \item $q_0$: todavía no se ha reconocido ningún símbolo de la subcadena.
+    \item $q_1$: se ha reconocido $a$.
+    \item $q_2$: se ha reconocido $ab$.
+    \item $q_3$: se ha reconocido $abb$.
+    \item $q_4$: se ha reconocido $abbb$.
+    \item $q_5$: se ha reconocido $abbba$.
+    \item $q_6$: se ha reconocido completamente $abbbab$.
+\end{itemize}
+
+El estado inicial es $q_0$ y el estado de aceptación es $q_6$.
+
+Formalmente, el autómata se define como
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde
+
+\[
+Q=\{q_0,q_1,q_2,q_3,q_4,q_5,q_6\},
+\]
+
+\[
+\Sigma=\{a,b\},
+\]
+
+y
+
+\[
+F=\{q_6\}.
+\]
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & $a$ & $b$ \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_0$ \\
+$q_1$ & $q_1$ & $q_2$ \\
+$q_2$ & $q_1$ & $q_3$ \\
+$q_3$ & $q_1$ & $q_4$ \\
+$q_4$ & $q_5$ & $q_0$ \\
+$q_5$ & $q_1$ & $q_6$ \\
+$*q_6$ & $q_6$ & $q_6$
+\end{tabular}
+\end{center}
+
+Una vez que el autómata llega al estado $q_6$, la subcadena $abbbab$
+ya fue encontrada. Por esta razón, cualquier símbolo posterior mantiene
+al autómata en $q_6$, ya que la palabra continúa conteniendo la subcadena
+solicitada.
+
+\subsection*{Pruebas}
+
+Se realizaron las siguientes pruebas en JFLAP:
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado esperado \\ \hline
+abbbab & Aceptada \\
+aabbbab & Aceptada \\
+bbabbbaba & Aceptada \\
+abbba & Rechazada \\
+abbbba & Rechazada \\
+ababab & Rechazada
+\end{tabular}
+\end{center}
+
+Las primeras tres cadenas contienen la subcadena $abbbab$, mientras que
+las últimas tres no la contienen completamente.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio102.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 102 en JFLAP.}
+\end{figure}
 
 \begin{enunciado}{103}
 Las palabras de $\Sigma_3$ que contienen la cadena $aabbba$.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se requiere construir un AFD sobre el alfabeto
+
+\[
+\Sigma_3=\{a,b\}
+\]
+
+que acepte todas las palabras que contengan la subcadena
+
+\[
+aabbba.
+\]
+
+Para construir el autómata, cada estado representa el avance realizado
+en el reconocimiento de la subcadena $aabbba$.
+
+\begin{itemize}
+    \item $q_0$: todavía no se ha reconocido ningún símbolo de la subcadena.
+    \item $q_1$: se ha reconocido $a$.
+    \item $q_2$: se ha reconocido $aa$.
+    \item $q_3$: se ha reconocido $aab$.
+    \item $q_4$: se ha reconocido $aabb$.
+    \item $q_5$: se ha reconocido $aabbb$.
+    \item $q_6$: se ha reconocido completamente $aabbba$.
+\end{itemize}
+
+El estado inicial es $q_0$ y el estado de aceptación es $q_6$.
+
+Formalmente, el autómata se define como
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde
+
+\[
+Q=\{q_0,q_1,q_2,q_3,q_4,q_5,q_6\},
+\]
+
+\[
+\Sigma=\{a,b\},
+\]
+
+y
+
+\[
+F=\{q_6\}.
+\]
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & $a$ & $b$ \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_0$ \\
+$q_1$ & $q_2$ & $q_0$ \\
+$q_2$ & $q_2$ & $q_3$ \\
+$q_3$ & $q_1$ & $q_4$ \\
+$q_4$ & $q_1$ & $q_5$ \\
+$q_5$ & $q_6$ & $q_0$ \\
+$*q_6$ & $q_6$ & $q_6$
+\end{tabular}
+\end{center}
+
+Una vez que el autómata alcanza el estado $q_6$, significa que la
+subcadena $aabbba$ ya apareció dentro de la palabra. Por esta razón,
+$q_6$ permanece como estado de aceptación sin importar si posteriormente
+se recibe una $a$ o una $b$.
+
+\subsection*{Pruebas}
+
+Se realizaron las siguientes pruebas en JFLAP:
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado esperado \\ \hline
+aabbba & Aceptada \\
+baabbbab & Aceptada \\
+aaaabbba & Aceptada \\
+aabbb & Rechazada \\
+aabbab & Rechazada \\
+abbbab & Rechazada
+\end{tabular}
+\end{center}
+
+Las primeras tres cadenas contienen la subcadena $aabbba$, mientras que
+las últimas tres no contienen completamente la secuencia solicitada.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio103.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 103 en JFLAP.}
+\end{figure}
 
 \begin{enunciado}{106}
 Las palabras de $\Sigma_1$ que incluyen la subcadena $1101001$.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se requiere construir un AFD sobre el alfabeto
+
+\[
+\Sigma_1=\{0,1,2\}
+\]
+
+que acepte todas las palabras que incluyan la subcadena
+
+\[
+1101001.
+\]
+
+Para construir el autómata, cada estado representa el avance realizado
+en el reconocimiento de la subcadena $1101001$.
+
+\begin{itemize}
+    \item $q_0$: todavía no se ha reconocido ningún símbolo.
+    \item $q_1$: se ha reconocido $1$.
+    \item $q_2$: se ha reconocido $11$.
+    \item $q_3$: se ha reconocido $110$.
+    \item $q_4$: se ha reconocido $1101$.
+    \item $q_5$: se ha reconocido $11010$.
+    \item $q_6$: se ha reconocido $110100$.
+    \item $q_7$: se ha reconocido completamente $1101001$.
+\end{itemize}
+
+El estado inicial es $q_0$ y el estado de aceptación es $q_7$.
+
+Formalmente,
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde
+
+\[
+Q=\{q_0,q_1,q_2,q_3,q_4,q_5,q_6,q_7\},
+\]
+
+\[
+\Sigma=\{0,1,2\},
+\]
+
+y
+
+\[
+F=\{q_7\}.
+\]
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & $0$ & $1$ & $2$ \\ \hline
+$\rightarrow q_0$ & $q_0$ & $q_1$ & $q_0$ \\
+$q_1$ & $q_0$ & $q_2$ & $q_0$ \\
+$q_2$ & $q_3$ & $q_2$ & $q_0$ \\
+$q_3$ & $q_0$ & $q_4$ & $q_0$ \\
+$q_4$ & $q_5$ & $q_2$ & $q_0$ \\
+$q_5$ & $q_6$ & $q_1$ & $q_0$ \\
+$q_6$ & $q_0$ & $q_7$ & $q_0$ \\
+$*q_7$ & $q_7$ & $q_7$ & $q_7$
+\end{tabular}
+\end{center}
+
+Cuando el autómata alcanza $q_7$, significa que la subcadena
+$1101001$ ya apareció dentro de la palabra. Por esta razón, cualquier
+símbolo posterior mantiene al autómata en $q_7$.
+
+\subsection*{Pruebas}
+
+Se realizaron las siguientes pruebas en JFLAP:
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado esperado \\ \hline
+1101001 & Aceptada \\
+01101001 & Aceptada \\
+211010012 & Aceptada \\
+110100 & Rechazada \\
+110101 & Rechazada \\
+1101002 & Rechazada
+\end{tabular}
+\end{center}
+
+Las primeras tres cadenas incluyen la subcadena $1101001$, mientras que
+las últimas tres no contienen completamente la secuencia solicitada.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio106.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 106 en JFLAP.}
+\end{figure}
 
 \begin{enunciado}{107}
 Las palabras de $\Sigma_1$ que incluyen al menos una vez la subcadena
