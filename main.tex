@@ -5,8 +5,11 @@
 \usepackage{enumitem}
 \usepackage{amsmath, amssymb}
 \usepackage[most]{tcolorbox}
+\usepackage{float}
+\usepackage{graphicx}
 
 \fancyhead[L]{Diana Laura Diaz Juarez}
+\fancyhead[C]{Grupo: 4CM4}
 \fancyhead[R]{Boleta: 2024630047}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -62,11 +65,120 @@ $\Sigma_1 = \{0,1,2\}$,  $\Sigma_2 = \{a,b,c,0,1\}$,  $\Sigma_3 = \{a,b\}$
 Las palabras de $\Sigma_1$ cuya longitud es un múltiplo de 3.
 \end{enunciado}
 
+\subsection*{Procedimiento y razonamiento}
 
+Se requiere construir un Autómata Finito Determinista (AFD) que acepte
+todas las palabras formadas con los símbolos de
+\[
+\Sigma_1=\{0,1,2\}
+\]
+cuya longitud sea un múltiplo de 3.
+
+Para resolver el problema no es necesario recordar cuáles símbolos se han
+leído, sino únicamente la cantidad de símbolos leídos módulo 3.
+
+Por esta razón se utilizan tres estados:
+
+\begin{itemize}
+    \item $q_0$: la cantidad de símbolos leídos es múltiplo de 3.
+    \item $q_1$: la cantidad de símbolos leídos deja residuo 1 al dividirse entre 3.
+    \item $q_2$: la cantidad de símbolos leídos deja residuo 2 al dividirse entre 3.
+\end{itemize}
+
+El estado $q_0$ es el estado inicial, ya que antes de leer cualquier
+símbolo la longitud de la cadena es 0, y 0 es múltiplo de 3.
+
+Además, $q_0$ es un estado de aceptación.
+
+Cada vez que se lee un símbolo, ya sea $0$, $1$ o $2$, el autómata
+avanza de la siguiente manera:
+
+\[
+q_0 \longrightarrow q_1 \longrightarrow q_2 \longrightarrow q_0.
+\]
+
+Por lo tanto, después de leer 3, 6, 9 o cualquier cantidad múltiplo
+de 3 de símbolos, el autómata regresará a $q_0$ y aceptará la cadena.
+
+
+\subsection*{Definición formal}
+
+El AFD se define como:
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde:
+
+\[
+Q=\{q_0,q_1,q_2\}
+\]
+
+\[
+\Sigma=\{0,1,2\}
+\]
+
+$q_0$ es el estado inicial y
+
+\[
+F=\{q_0\}.
+\]
+
+
+\subsection*{Tabla de transiciones}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+\hline
+Estado & 0 & 1 & 2 \\
+\hline
+$\rightarrow *q_0$ & $q_1$ & $q_1$ & $q_1$ \\
+$q_1$ & $q_2$ & $q_2$ & $q_2$ \\
+$q_2$ & $q_0$ & $q_0$ & $q_0$ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsection*{Pruebas}
+
+Para comprobar el funcionamiento del autómata se realizaron tres pruebas
+con cadenas aceptadas y tres con cadenas rechazadas.
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\hline
+Cadena & Longitud & Resultado \\
+\hline
+010       & 3 & Aceptada \\
+111002    & 6 & Aceptada \\
+201201201 & 9 & Aceptada \\
+1111      & 4 & Rechazada \\
+00000     & 5 & Rechazada \\
+2222222   & 7 & Rechazada \\
+\hline
+\end{tabular}
+\end{center}
+
+Las cadenas $010$, $111002$ y $201201201$ son aceptadas porque sus
+longitudes son 3, 6 y 9, respectivamente, y por lo tanto son múltiplos
+de 3.
+
+Por otro lado, las cadenas $1111$, $00000$ y $2222222$ son rechazadas
+porque sus longitudes son 4, 5 y 7, respectivamente, las cuales no son
+múltiplos de 3.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio97.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 97 en JFLAP.}
+\end{figure}
 \begin{enunciado}{99}
 Las palabras de $\Sigma_1$ que terminan con la cadena $001001$.
 \end{enunciado}
-
 
 \begin{enunciado}{102}
 Las palabras de $\Sigma_3$ que contienen la cadena $abbbab$.
