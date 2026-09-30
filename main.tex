@@ -584,7 +584,107 @@ las últimas tres no contienen completamente la secuencia solicitada.
 Las palabras de $\Sigma_1$ que incluyen al menos una vez la subcadena
 $0101$ y al menos una vez la subcadena $021$.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se requiere construir un AFD sobre el alfabeto
+
+\[
+\Sigma_1=\{0,1,2\}
+\]
+
+que acepte todas las palabras que incluyan al menos una vez la subcadena
+$0101$ y al menos una vez la subcadena $021$.
+
+Para construir el autómata se consideran tres situaciones principales:
+primero, cuando todavía no se ha encontrado ninguna de las dos
+subcadenas; segundo, cuando ya se encontró $0101$ y se continúa buscando
+$021$; y tercero, cuando ya se encontró $021$ y se continúa buscando
+$0101$.
+
+Cuando ambas subcadenas han sido encontradas, el autómata alcanza el
+estado de aceptación $q_{12}$.
+
+Formalmente,
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde
+
+\[
+Q=\{q_0,q_1,q_2,q_3,q_4,q_5,q_6,q_7,
+q_8,q_9,q_{10},q_{11},q_{12}\},
+\]
+
+\[
+\Sigma=\{0,1,2\},
+\]
+
+y
+
+\[
+F=\{q_{12}\}.
+\]
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & $0$ & $1$ & $2$ \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_0$ & $q_0$ \\
+$q_1$ & $q_1$ & $q_2$ & $q_4$ \\
+$q_2$ & $q_3$ & $q_0$ & $q_0$ \\
+$q_3$ & $q_1$ & $q_5$ & $q_4$ \\
+$q_4$ & $q_1$ & $q_8$ & $q_0$ \\
+$q_5$ & $q_6$ & $q_5$ & $q_5$ \\
+$q_6$ & $q_6$ & $q_5$ & $q_7$ \\
+$q_7$ & $q_6$ & $q_{12}$ & $q_5$ \\
+$q_8$ & $q_9$ & $q_8$ & $q_8$ \\
+$q_9$ & $q_9$ & $q_{10}$ & $q_8$ \\
+$q_{10}$ & $q_{11}$ & $q_8$ & $q_8$ \\
+$q_{11}$ & $q_9$ & $q_{12}$ & $q_8$ \\
+$*q_{12}$ & $q_{12}$ & $q_{12}$ & $q_{12}$
+\end{tabular}
+\end{center}
+
+Los estados $q_5$, $q_6$ y $q_7$ representan situaciones en las que
+la subcadena $0101$ ya fue encontrada y todavía se busca $021$.
+
+Los estados $q_8$, $q_9$, $q_{10}$ y $q_{11}$ representan situaciones
+en las que $021$ ya fue encontrada y todavía se busca $0101$.
+
+Finalmente, al llegar a $q_{12}$ significa que ambas subcadenas ya
+aparecieron. Por esta razón, las entradas $0$, $1$ y $2$ mantienen al
+autómata en este estado de aceptación.
+
+\subsection*{Pruebas}
+
+Se realizaron las siguientes pruebas en JFLAP:
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado esperado \\ \hline
+0101021 & Aceptada \\
+0210101 & Aceptada \\
+201010210 & Aceptada \\
+0101 & Rechazada \\
+021 & Rechazada \\
+010201 & Rechazada
+\end{tabular}
+\end{center}
+
+Las primeras tres cadenas contienen tanto la subcadena $0101$ como
+la subcadena $021$. Las últimas tres no cumplen simultáneamente ambas
+condiciones.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio107.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 107 en JFLAP.}
+\end{figure}
 
 \begin{enunciado}{109}
 Las palabras de $\Sigma_2$ que incluyen al menos una vez la subcadena
@@ -597,20 +697,230 @@ traslapar.
 Las palabras de $\Sigma_1$ que contienen exactamente tres veces la
 subcadena $01002$.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se requiere construir un AFD sobre el alfabeto
+
+\[
+\Sigma_1=\{0,1,2\}
+\]
+
+que acepte únicamente las palabras que contengan exactamente tres veces
+la subcadena $01002$.
+
+Para construir el autómata se lleva un registro tanto del número de veces
+que se ha encontrado la subcadena como del avance que se tiene en una
+posible nueva aparición de $01002$.
+
+Los estados se dividen en cuatro grupos principales:
+
+\begin{itemize}
+    \item $q_0$ a $q_4$: todavía no se ha encontrado $01002$.
+    \item $q_5$ a $q_9$: se ha encontrado exactamente una vez.
+    \item $q_{10}$ a $q_{14}$: se ha encontrado exactamente dos veces.
+    \item $q_{15}$ a $q_{19}$: se ha encontrado exactamente tres veces.
+\end{itemize}
+
+Finalmente, $q_{20}$ es un estado trampa al que se llega cuando la
+subcadena aparece por cuarta vez.
+
+Formalmente,
+
+\[
+M=(Q,\Sigma,\delta,q_0,F)
+\]
+
+donde
+
+\[
+Q=\{q_0,q_1,q_2,\ldots,q_{20}\},
+\]
+
+\[
+\Sigma=\{0,1,2\},
+\]
+
+y el conjunto de estados finales es
+
+\[
+F=\{q_{15},q_{16},q_{17},q_{18},q_{19}\}.
+\]
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & $0$ & $1$ & $2$ \\ \hline
+
+$\rightarrow q_0$ & $q_1$ & $q_0$ & $q_0$ \\
+$q_1$ & $q_1$ & $q_2$ & $q_0$ \\
+$q_2$ & $q_3$ & $q_0$ & $q_0$ \\
+$q_3$ & $q_4$ & $q_2$ & $q_0$ \\
+$q_4$ & $q_1$ & $q_2$ & $q_5$ \\ \hline
+
+$q_5$ & $q_6$ & $q_5$ & $q_5$ \\
+$q_6$ & $q_6$ & $q_7$ & $q_5$ \\
+$q_7$ & $q_8$ & $q_5$ & $q_5$ \\
+$q_8$ & $q_9$ & $q_7$ & $q_5$ \\
+$q_9$ & $q_6$ & $q_7$ & $q_{10}$ \\ \hline
+
+$q_{10}$ & $q_{11}$ & $q_{10}$ & $q_{10}$ \\
+$q_{11}$ & $q_{11}$ & $q_{12}$ & $q_{10}$ \\
+$q_{12}$ & $q_{13}$ & $q_{10}$ & $q_{10}$ \\
+$q_{13}$ & $q_{14}$ & $q_{12}$ & $q_{10}$ \\
+$q_{14}$ & $q_{11}$ & $q_{12}$ & $q_{15}$ \\ \hline
+
+$*q_{15}$ & $q_{16}$ & $q_{15}$ & $q_{15}$ \\
+$*q_{16}$ & $q_{16}$ & $q_{17}$ & $q_{15}$ \\
+$*q_{17}$ & $q_{18}$ & $q_{15}$ & $q_{15}$ \\
+$*q_{18}$ & $q_{19}$ & $q_{17}$ & $q_{15}$ \\
+$*q_{19}$ & $q_{16}$ & $q_{17}$ & $q_{20}$ \\ \hline
+
+$q_{20}$ & $q_{20}$ & $q_{20}$ & $q_{20}$
+
+\end{tabular}
+\end{center}
+
+Los estados $q_{15}$ a $q_{19}$ son estados de aceptación debido a que
+representan situaciones en las que la subcadena $01002$ ya apareció
+exactamente tres veces.
+
+Aunque se haya encontrado tres veces, el autómata continúa verificando
+la entrada. Si se completa una cuarta aparición de $01002$, se llega
+al estado $q_{20}$.
+
+El estado $q_{20}$ es un estado trampa, ya que una palabra que contiene
+cuatro o más apariciones de $01002$ ya no puede cumplir la condición de
+contenerla exactamente tres veces.
+
+\subsection*{Pruebas}
+
+Se realizaron las siguientes pruebas en JFLAP:
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado esperado \\ \hline
+010020100201002 & Aceptada \\
+10100201002010022 & Aceptada \\
+010020100201002111 & Aceptada \\
+0100201002 & Rechazada \\
+01002 & Rechazada \\
+01002010020100201002 & Rechazada
+\end{tabular}
+\end{center}
+
+Las primeras tres cadenas contienen exactamente tres apariciones de
+$01002$. Las siguientes contienen una cantidad diferente de tres y,
+por lo tanto, son rechazadas.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{evidencias/Ejercicio111.png}
+    \caption{Diagrama y pruebas del AFD correspondiente al ejercicio 111 en JFLAP.}
+\end{figure}
 
 \begin{enunciado}{112}
 Las palabras de $\Sigma_1$ que contienen dos veces la subcadena $010$,
 asumiendo que no se pueden traslapar; es decir, que $01010$ no está en el
 lenguaje, mientras que $010010$ sí pertenece.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se construyó un AFD sobre $\Sigma_1=\{0,1,2\}$ que reconoce las palabras
+que contienen dos veces la subcadena $010$, sin permitir traslapes.
+
+Cuando se encuentra la primera aparición de $010$, el último símbolo de
+esta aparición no se reutiliza como inicio de la siguiente. De esta manera,
+por ejemplo, $01010$ no es aceptada, mientras que $010010$ sí lo es.
+
+El estado inicial es $q_0$ y el estado de aceptación es $q_6$.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & 0 & 1 & 2 \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_0$ & $q_0$ \\
+$q_1$ & $q_1$ & $q_2$ & $q_0$ \\
+$q_2$ & $q_3$ & $q_0$ & $q_0$ \\
+$q_3$ & $q_4$ & $q_3$ & $q_3$ \\
+$q_4$ & $q_4$ & $q_5$ & $q_3$ \\
+$q_5$ & $q_6$ & $q_3$ & $q_3$ \\
+$*q_6$ & $q_6$ & $q_6$ & $q_6$
+\end{tabular}
+\end{center}
+
+\subsection*{Pruebas}
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado \\ \hline
+010010 & Aceptada \\
+0101010 & Aceptada \\
+20100102 & Aceptada \\
+01010 & Rechazada \\
+010 & Rechazada \\
+001010 & Rechazada
+\end{tabular}
+\end{center}
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio112.png}
+\caption{AFD y pruebas correspondientes al ejercicio 112.}
+\end{figure}
 
 \begin{enunciado}{113}
 Las palabras de $\Sigma_1$ que contienen dos veces la subcadena $010$,
 asumiendo que sí se pueden traslapar.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se construyó un AFD sobre $\Sigma_1=\{0,1,2\}$ que reconoce las palabras
+que contienen dos apariciones de la subcadena $010$, permitiendo
+traslapes.
+
+A diferencia del ejercicio anterior, al encontrar $010$, su último $0$
+puede utilizarse también como el primer símbolo de una nueva aparición.
+Por esta razón, la palabra $01010$ contiene dos apariciones traslapadas.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & 0 & 1 & 2 \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_0$ & $q_0$ \\
+$q_1$ & $q_1$ & $q_2$ & $q_0$ \\
+$q_2$ & $q_3$ & $q_0$ & $q_0$ \\
+$q_3$ & $q_3$ & $q_4$ & $q_0$ \\
+$q_4$ & $q_5$ & $q_0$ & $q_0$ \\
+$*q_5$ & $q_5$ & $q_5$ & $q_5$
+\end{tabular}
+\end{center}
+
+\subsection*{Pruebas}
+
+\begin{center}
+\begin{tabular}{c|c}
+Cadena & Resultado \\ \hline
+01010 & Aceptada \\
+010010 & Aceptada \\
+2010102 & Aceptada \\
+010 & Rechazada \\
+0010 & Rechazada \\
+01012 & Rechazada
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio113.png}
+\caption{AFD y pruebas correspondientes al ejercicio 113.}
+\end{figure}
 
 \begin{enunciado}{116}
 \[
@@ -624,13 +934,70 @@ L=\{w\in\Sigma_2 : w=a^n b^m c^{n+1},\; m,n\in\mathbb{N}\}.
 L=\{w\in\Sigma_3 : w=axabya,\; x,y\in\Sigma_3^*\}.
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+El lenguaje es
+
+\[
+L=\{w\in\Sigma_3^*:w=axabya,\ x,y\in\Sigma_3^*\}.
+\]
+
+El AFD verifica que la palabra comience con $a$, que posteriormente
+aparezca la subcadena $ab$ y que finalmente termine en $a$.
+
+El estado $q_5$ funciona como estado trampa para las palabras que
+comienzan con $b$.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & a & b \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_5$ \\
+$q_1$ & $q_2$ & $q_1$ \\
+$q_2$ & $q_2$ & $q_3$ \\
+$q_3$ & $q_4$ & $q_3$ \\
+$*q_4$ & $q_4$ & $q_3$ \\
+$q_5$ & $q_5$ & $q_5$
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio118.png}
+\caption{AFD correspondiente al ejercicio 118.}
+\end{figure}
 
 \begin{enunciado}{120}
 Las palabras de $\Sigma_1$ tales que el primer carácter y el último son
 distintos.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se diseñó un AFD que recuerda el primer símbolo de la palabra y compara
+dicho símbolo con el último carácter leído. Una palabra es aceptada
+únicamente cuando ambos son diferentes.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & 0 & 1 & 2 \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_2$ & $q_3$ \\
+$q_1$ & $q_1$ & $q_4$ & $q_4$ \\
+$q_2$ & $q_5$ & $q_2$ & $q_5$ \\
+$q_3$ & $q_6$ & $q_6$ & $q_3$ \\
+$*q_4$ & $q_1$ & $q_4$ & $q_4$ \\
+$*q_5$ & $q_5$ & $q_2$ & $q_5$ \\
+$*q_6$ & $q_6$ & $q_6$ & $q_3$
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio120.png}
+\caption{AFD correspondiente al ejercicio 120.}
+\end{figure}
 
 \begin{enunciado}{121}
 Las palabras de $\Sigma_1$ con longitud $3n$ para algún $n\in\mathbb{N}$,
@@ -640,7 +1007,34 @@ tiene al menos un $0$.
 Por ejemplo, $000\;011\;110\;101$ es una palabra válida, mientras que
 $001\;101\;111\;010$ no lo es, pues el tercer bloque no tiene ningún $0$.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+La palabra se divide en bloques consecutivos de longitud 3. El AFD
+verifica que cada bloque contenga al menos un símbolo $0$.
+
+El estado $q_0$ representa que se terminó correctamente un bloque, por
+lo que también es estado de aceptación. El estado $q_5$ es un estado
+trampa al que se llega cuando se completa un bloque sin ningún $0$.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & 0 & 1 & 2 \\ \hline
+$\rightarrow *q_0$ & $q_1$ & $q_2$ & $q_2$ \\
+$q_1$ & $q_3$ & $q_3$ & $q_3$ \\
+$q_2$ & $q_3$ & $q_4$ & $q_4$ \\
+$q_3$ & $q_0$ & $q_0$ & $q_0$ \\
+$q_4$ & $q_0$ & $q_5$ & $q_5$ \\
+$q_5$ & $q_5$ & $q_5$ & $q_5$
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio121.png}
+\caption{AFD correspondiente al ejercicio 121.}
+\end{figure}
 
 \begin{enunciado}{122}
 Las palabras de $\Sigma_1$ tales que cualquier cadena de tres símbolos
@@ -650,7 +1044,32 @@ Nota que la cadena $001110$ sí está en el lenguaje del problema anterior,
 pero no en este, mientras que $00101$ está en el lenguaje de este problema
 y no en el del anterior.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+El AFD verifica que cualquier conjunto de tres símbolos consecutivos
+contenga al menos un $0$. Por lo tanto, nunca pueden aparecer tres
+símbolos consecutivos pertenecientes solamente a $\{1,2\}$.
+
+Los estados $q_0$, $q_1$ y $q_2$ son de aceptación. El estado $q_3$
+es un estado trampa.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Estado & 0 & 1 & 2 \\ \hline
+$\rightarrow *q_0$ & $q_0$ & $q_1$ & $q_1$ \\
+$*q_1$ & $q_0$ & $q_2$ & $q_2$ \\
+$*q_2$ & $q_0$ & $q_3$ & $q_3$ \\
+$q_3$ & $q_3$ & $q_3$ & $q_3$
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio122.png}
+\caption{AFD correspondiente al ejercicio 122.}
+\end{figure}
 
 \begin{enunciado}{123}
 Las palabras de $\Sigma_3$ de la forma
@@ -707,6 +1126,20 @@ A\setminus B=\{x:x\in A\text{ y }x\notin B\}.
 \end{enunciado}
 
 
+\subsection*{Procedimiento}
+
+Al sustituir el conjunto de estados finales $F$ por su complemento
+$Q\setminus F$, las palabras que anteriormente eran aceptadas pasan a
+ser rechazadas y las rechazadas pasan a ser aceptadas.
+
+Por lo tanto, el lenguaje reconocido es el complemento del lenguaje
+original:
+
+\[
+\boxed{L(A')=\Sigma^*\setminus L(A)}
+\]
+
+
 \begin{enunciado}{126}
 Sea
 \[
@@ -719,7 +1152,14 @@ un autómata finito determinista.
 F=\varnothing?
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Si $F=\varnothing$, el autómata no posee ningún estado de aceptación.
+Por lo tanto, ninguna palabra puede ser aceptada.
+
+\[
+\boxed{L(A)=\varnothing}
+\]
 
 \begin{enunciado}{127}
 Sea
@@ -733,7 +1173,15 @@ un autómata finito determinista.
 F=Q?
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Si $F=Q$, todos los estados del autómata son estados de aceptación.
+Por lo tanto, cualquier palabra sobre el alfabeto $\Sigma$ termina en
+un estado final.
+
+\[
+\boxed{L(A)=\Sigma^*}
+\]
 
 \begin{enunciado}{128}
 Sea $L$ el lenguaje del autómata dado por el siguiente diagrama.
@@ -750,7 +1198,25 @@ entonces
 00100\in L_2.
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+El lenguaje $L_2$ está formado por las palabras del lenguaje original
+después de eliminar su último símbolo.
+
+Para construir el nuevo autómata se conservan los estados y las
+transiciones del AFD original. Posteriormente se identifican los estados
+desde los cuales una transición adicional puede completar una palabra
+aceptada por el autómata original.
+
+De esta manera se obtiene el AFD correspondiente a $L_2$.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio128.png}
+\caption{AFD construido para el lenguaje $L_2$ del ejercicio 128.}
+\end{figure}
 
 \begin{enunciado}{131}
 Dibuje el AFD dado por los siguientes elementos:
@@ -776,7 +1242,44 @@ y
 
 Determine un lenguaje $L(M)$ que el AFD reconoce.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+El AFD está definido por
+
+\[
+M=(\{q_1,q_2\},\{0,1\},\delta,q_1,\{q_2\}).
+\]
+
+El estado $q_1$ es inicial y $q_2$ es el único estado de aceptación.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & 0 & 1 \\ \hline
+$\rightarrow q_1$ & $q_1$ & $q_2$ \\
+$*q_2$ & $q_1$ & $q_2$
+\end{tabular}
+\end{center}
+
+Se observa que al leer un $0$ el autómata termina en $q_1$, mientras que
+al leer un $1$ termina en $q_2$.
+
+Por lo tanto, el lenguaje reconocido es
+
+\[
+\boxed{
+L(M)=\{w\in\{0,1\}^*:w\text{ termina en }1\}
+}
+\]
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{evidencias/Ejercicio131.png}
+\caption{AFD correspondiente al ejercicio 131.}
+\end{figure}
 
 \begin{enunciado}{133}
 Obtener la tabla de estados y el diagrama de transiciones (esquema AFD)
