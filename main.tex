@@ -1314,7 +1314,43 @@ Las transiciones están definidas de la siguiente manera:
 \end{aligned}
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+El autómata está definido por:
+
+\[
+Q=\{q_0,q_1,q_2,q_3\}, \qquad
+\Sigma=\{a,b\}
+\]
+
+donde $q_0$ es el estado inicial y también el único estado de aceptación:
+
+\[
+F=\{q_0\}.
+\]
+
+A partir de las transiciones proporcionadas en el enunciado se obtiene
+la siguiente tabla.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & a & b \\ \hline
+$\rightarrow *q_0$ & $q_2$ & $q_1$ \\
+$q_1$ & $q_3$ & $q_0$ \\
+$q_2$ & $q_0$ & $q_3$ \\
+$q_3$ & $q_1$ & $q_2$
+\end{tabular}
+\end{center}
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio133.png}
+\caption{Diagrama de transiciones y pruebas del ejercicio 133.}
+\end{figure}
 
 \begin{enunciado}{135}
 Dado
@@ -1326,7 +1362,49 @@ construir un AFD que reconozca el lenguaje:
 L=\{b^mab^n:m,n>0\}.
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se desea reconocer el lenguaje
+
+\[
+L=\{b^mab^n:m,n>0\}.
+\]
+
+Por lo tanto, una palabra aceptada debe contener al menos una $b$ antes
+de la $a$ y al menos una $b$ después de ella. Además, solamente puede
+aparecer una $a$.
+
+Se utiliza $q_4$ como estado trampa para aquellas palabras que dejan de
+cumplir la estructura requerida.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & a & b \\ \hline
+$\rightarrow q_0$ & $q_4$ & $q_1$ \\
+$q_1$ & $q_2$ & $q_1$ \\
+$q_2$ & $q_4$ & $q_3$ \\
+$*q_3$ & $q_4$ & $q_3$ \\
+$q_4$ & $q_4$ & $q_4$
+\end{tabular}
+\end{center}
+
+La cadena mínima aceptada es
+
+\[
+bab,
+\]
+
+correspondiente a $m=1$ y $n=1$.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio135.png}
+\caption{AFD correspondiente al lenguaje $b^mab^n$.}
+\end{figure}
 
 \begin{enunciado}{137}
 Construir un AFD que reconozca el conjunto de todas las cadenas sobre
@@ -1335,7 +1413,41 @@ Construir un AFD que reconozca el conjunto de todas las cadenas sobre
 \]
 que comiencen con el prefijo ``ab''.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se construyó un AFD sobre el alfabeto
+
+\[
+\Sigma=\{a,b\}
+\]
+
+que acepta todas las palabras que comienzan con el prefijo $ab$.
+
+El estado $q_0$ verifica el primer símbolo y $q_1$ espera el segundo
+símbolo del prefijo. Al alcanzar $q_2$, la palabra ya comienza con $ab$,
+por lo que cualquier símbolo posterior es permitido.
+
+El estado $q_3$ funciona como estado trampa.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & a & b \\ \hline
+$\rightarrow q_0$ & $q_1$ & $q_3$ \\
+$q_1$ & $q_3$ & $q_2$ \\
+$*q_2$ & $q_2$ & $q_2$ \\
+$q_3$ & $q_3$ & $q_3$
+\end{tabular}
+\end{center}
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio137.png}
+\caption{AFD que reconoce palabras que comienzan con $ab$.}
+\end{figure}
 
 \begin{enunciado}{139}
 Determine un autómata finito (FA) que acepte todas las cadenas en
@@ -1344,7 +1456,37 @@ Determine un autómata finito (FA) que acepte todas las cadenas en
 \]
 que tengan un número par de ceros.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se desea reconocer todas las cadenas sobre $\{0,1\}$ que contienen un
+número par de ceros.
+
+Se utilizan dos estados. El estado $q_0$ representa que se ha leído una
+cantidad par de ceros y $q_1$ representa una cantidad impar.
+
+Cada vez que se lee un $0$ se cambia de estado, mientras que un $1$ no
+modifica la paridad del número de ceros.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & 0 & 1 \\ \hline
+$\rightarrow *q_0$ & $q_1$ & $q_0$ \\
+$q_1$ & $q_0$ & $q_1$
+\end{tabular}
+\end{center}
+
+El estado $q_0$ es inicial y final, debido a que inicialmente se tienen
+cero símbolos $0$, y cero es un número par.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio139.png}
+\caption{AFD que reconoce cadenas con un número par de ceros.}
+\end{figure}
 
 \begin{enunciado}{141}
 Determine un autómata finito (FA), $M$, que acepte el lenguaje $L$, donde:
@@ -1353,7 +1495,38 @@ L=\{w\in\{0,1\}^*: \text{cada }0\text{ en }w\text{ tiene un }1
 \text{ inmediatamente a su derecha}\}.
 \]
 \end{enunciado}
+\subsection*{Procedimiento}
 
+El lenguaje está formado por las palabras sobre $\{0,1\}$ en las que
+cada símbolo $0$ tiene inmediatamente un símbolo $1$ a su derecha.
+
+El estado $q_0$ representa que no existe ningún $0$ pendiente. Cuando
+se lee un $0$, el autómata pasa a $q_1$, donde necesariamente debe
+aparecer un $1$.
+
+Si aparece otro $0$, se pasa al estado trampa $q_2$.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & 0 & 1 \\ \hline
+$\rightarrow *q_0$ & $q_1$ & $q_0$ \\
+$q_1$ & $q_2$ & $q_0$ \\
+$q_2$ & $q_2$ & $q_2$
+\end{tabular}
+\end{center}
+
+Por ejemplo, $0101$ es aceptada, mientras que $010$ es rechazada debido
+a que su último $0$ no tiene un $1$ inmediatamente a la derecha.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio141.png}
+\caption{AFD correspondiente al ejercicio 141.}
+\end{figure}
 
 \begin{enunciado}{143}
 Determine los lenguajes producidos por los autómatas finitos (FA)
@@ -1371,7 +1544,52 @@ identifica aquellos que son múltiplos de 5.
 Diseñe un AFD que lee un número binario de izquierda a derecha y lo
 acepta si es un múltiplo de 6.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se construyó un AFD que lee un número binario de izquierda a derecha
+y determina si su valor es múltiplo de 6.
+
+Cada estado $q_i$ representa el residuo $i$ del número leído hasta ese
+momento al dividirlo entre 6.
+
+Al agregar un nuevo bit, el nuevo residuo se calcula mediante
+
+\[
+r_{\text{nuevo}}=(2r+\text{bit})\bmod 6.
+\]
+
+El estado $q_0$ representa residuo cero y, por lo tanto, es el estado
+de aceptación.
+
+\subsection*{Tabla de transición}
+
+\begin{center}
+\begin{tabular}{c|cc}
+Estado & 0 & 1 \\ \hline
+$\rightarrow *q_0$ & $q_0$ & $q_1$ \\
+$q_1$ & $q_2$ & $q_3$ \\
+$q_2$ & $q_4$ & $q_5$ \\
+$q_3$ & $q_0$ & $q_1$ \\
+$q_4$ & $q_2$ & $q_3$ \\
+$q_5$ & $q_4$ & $q_5$
+\end{tabular}
+\end{center}
+
+Por ejemplo,
+
+\[
+110_2=6_{10},
+\]
+
+por lo que la cadena $110$ termina en $q_0$ y es aceptada.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio147.png}
+\caption{AFD que reconoce números binarios múltiplos de 6.}
+\end{figure}
 
 \begin{enunciado}{148}
 Diseñar un autómata finito (FA) que modele el progreso de un alumno de la
@@ -1400,7 +1618,75 @@ diciembre, hasta que apruebe el curso.
 Se deben evitar más de dos convocatorias en un año y reiniciar el ciclo en
 caso de no aprobar en las dos primeras.
 \end{enunciado}
+\subsection*{Procedimiento}
 
+Se modeló el progreso del alumno mediante los símbolos
+
+\[
+\Sigma=\{P,N,A,S\},
+\]
+
+donde $P$ indica que el alumno se presenta, $N$ que no se presenta,
+$A$ que aprueba y $S$ que aplaza.
+
+Los estados utilizados representan las siguientes situaciones:
+
+\begin{itemize}
+    \item $q_0$: inicio de un ciclo de convocatorias.
+    \item $q_1$: el alumno se presentó a la primera convocatoria.
+    \item $q_2$: utilizó una convocatoria sin aprobar.
+    \item $q_3$: se presentó a la segunda convocatoria.
+    \item $q_4$: el alumno aprobó el curso.
+\end{itemize}
+
+El estado $q_4$ es el estado final.
+
+Si el alumno no aprueba después de utilizar las dos convocatorias,
+el autómata regresa a $q_0$ para iniciar nuevamente el ciclo.
+
+\subsection*{Transiciones principales}
+
+\[
+q_0\xrightarrow{P}q_1
+\]
+
+\[
+q_0\xrightarrow{N}q_0
+\]
+
+\[
+q_1\xrightarrow{A}q_4
+\]
+
+\[
+q_1\xrightarrow{S}q_2
+\]
+
+\[
+q_2\xrightarrow{P}q_3
+\]
+
+\[
+q_2\xrightarrow{N}q_2
+\]
+
+\[
+q_3\xrightarrow{A}q_4
+\]
+
+\[
+q_3\xrightarrow{S}q_0
+\]
+
+Una vez alcanzado $q_4$, el alumno ha aprobado la Unidad de Aprendizaje.
+
+\subsection*{Evidencia en JFLAP}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{evidencias/Ejercicio148.png}
+\caption{Autómata que modela el progreso del alumno en las convocatorias.}
+\end{figure}
 
 \begin{enunciado}{149}
 Considere el autómata
@@ -1432,7 +1718,6 @@ B & A & C\\
     \item $\hat{\delta}(A,01001)$
 \end{enumerate}
 \end{enunciado}
-
 
 \begin{enunciado}{150}
 Considere el autómata
